@@ -4,6 +4,7 @@ import Hls from 'hls.js';
 import { useEffect } from 'react';
 import "plyr-react/plyr.css";
 import './player.css';
+import { useRouter } from 'next/navigation';
 
 const VideoPlayer = ({ src, sub, ts, title }) => {
     const options = {
@@ -94,6 +95,30 @@ const VideoPlayer = ({ src, sub, ts, title }) => {
     const backButton = () => {
         window.parent.postMessage("backbutton-clicked", "*");
     };
+    const router = useRouter()
+    useEffect(() => {
+        const handler = (ev) => {
+          // console.log('ev', ev)
+          // console.log(ev.data)
+          if (ev.data === "backbutton-clicked") {
+            // navigate(`/?title=${params.name}`);
+            // window.location.reload(false);
+            router.back()
+          }
+          if (ev.data === "tabs") tabshandle();
+          if (ev.data === "nextepisode-pressed") nextEpHandle();
+          if (ev.data.type === "watchprogress")
+            // tsHandler(ev.data.position.toFixed(0), ev.data.duration.toFixed(0));
+        console.log(ev.data.position.toFixed(0),ev.data.duration.toFixed(0))
+    
+          if (typeof ev.data !== "object") return;
+          if (!ev.data.type) return;
+          if (ev.data.type !== "message") return;
+          if (!ev.data.message) return;
+        };
+        window.addEventListener("message", handler);
+        return () => window.removeEventListener("message", handler);
+      }, []);
 
     return (
         <>
