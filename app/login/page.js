@@ -5,6 +5,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Loading from "../loading";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -111,7 +112,7 @@ export default function LoginPage() {
   }
 
   if (loading) {
-    return <h1>loading..</h1>;
+    return <Loading />;
   }
 
   if (user) {

@@ -5,6 +5,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Link from 'next/link';
 import { Icons } from '../assets/Icons';
 import { useRouter } from 'next/navigation';
+import Search from '../Search/Search';
 
 const Header = () => {
   const supabase = createClientComponentClient();
@@ -12,7 +13,12 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+ 
+    try{
+      await supabase.auth.signOut();
+    }catch(err){
+      console.log(err)
+    }
     router.refresh();
   };
 
@@ -36,9 +42,9 @@ const Header = () => {
       maxWidth="xl"
       className={`fixed ${isScrolled ? 'bg-dark-header' : 'bg-transparent'} blur-none backdrop-blur-none backdrop-saturate-100`}
     >
-      <Link href="/">
+      <button onClick={()=> router.replace('/')}>
         <Icons.netflix className="h-[90px] w-[100px] text-danger" />
-      </Link>
+      </button>
 
       <NavbarContent className="ml-5 font-bold hidden sm:flex gap-4" justify="start">
         <NavbarItem>
@@ -49,6 +55,7 @@ const Header = () => {
       </NavbarContent>
 
       <NavbarContent as="div" justify="end">
+        <Search />
         <Dropdown placement="bottom-end">
           <DropdownTrigger>
             <Avatar

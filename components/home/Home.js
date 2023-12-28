@@ -9,19 +9,23 @@ const Home = async () => {
     const idArr = id.split('-');
     return idArr[idArr.length - 1];
   };
-  const trending = await getTrending('all', 'day', undefined, 1)
-  const popularMovie = await   getListMovies('popular', undefined, 1)
-  const popularTv = await getListDiscover(      'tv',
-  undefined,
-  undefined,
-  undefined,
-  1,
-  undefined,
-  undefined,
-  undefined,
-  undefined,
-  undefined,
-  100,)
+  const [trending, popularMovie, popularTv] = await Promise.all([
+    getTrending('all', 'day', undefined, 1),
+    getListMovies('popular', undefined, 1),
+    getListDiscover(
+      'tv',
+      undefined,
+      undefined,
+      undefined,
+      1,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      100
+    ),
+  ]);
   const randomIndex = Math.floor(Math.random() * trending?.items?.length);
   const randomItem = trending?.items[randomIndex];
   return (

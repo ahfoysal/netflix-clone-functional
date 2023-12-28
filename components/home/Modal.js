@@ -153,7 +153,6 @@ console.log(data)
         setSeason("1")
       }
       const handleSelectEpisode = (index) => {
-        // Change cursor to "wait" during loading
         document.body.style.cursor = 'wait';
       
         console.log(index);
@@ -163,26 +162,25 @@ console.log(data)
           .then((res) => res.json())
           .then((data) => {
             console.log(toastId);
-            toast.dismiss(toastId); // Dismiss loading toast
-            setIsLoading(false);
-            // Process fetched data here
+       
+            
             if(data.episodeId === undefined){
+              toast.dismiss(toastId); 
+              setIsLoading(false);
               return toast.error("We dont have this show right now.")
             }
             router.push(`/watch?id=${data.id}&type=${mediaType}&episodeId=${data.episodeId}${mediaType === "tv" ? "&season="+season : ""}`)
-            // Restore cursor to default once fetch is complete
+            toast.dismiss(toastId); 
+            setIsLoading(false);
             document.body.style.cursor = 'default';
           })
           .catch((error) => {
             console.error('Error:', error);
             setIsLoading(false);
-            // Dismiss loading toast in case of an error
             toast.dismiss(toastId);
       
-            // Handle the error (e.g., show an error message)
             toast.error('An error occurred. Please try again.');
       
-            // Restore cursor to default in case of an error
             document.body.style.cursor = 'default';
           });
       };
