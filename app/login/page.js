@@ -47,7 +47,7 @@ export default function LoginPage() {
     }
 
     getUser();
-  }, []);
+  }, [supabase]);
 
   const handleSignUp = async (e) => {
     setIsLoading(true)

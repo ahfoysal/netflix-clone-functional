@@ -21,6 +21,16 @@ const Header = () => {
     }
     router.refresh();
   };
+  // useEffect(() => {
+  //   async function getUser() {
+  //     const {
+  //       data: { user },
+  //     } = await supabase.auth.getUser();
+  //    console.log(user)
+  //   }
+
+  //   getUser();
+  // }, []);
 
   useEffect(() => {
     const handleScroll = () => {
