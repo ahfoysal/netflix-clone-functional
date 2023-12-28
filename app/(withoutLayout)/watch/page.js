@@ -1,6 +1,6 @@
 import VideoPlayer from "@/components/player/PLYR";
 import { getWatchEpisode } from "@/server/TMDB/Server";
-import Loading from "../loading";
+import Loading from "../../loading";
 
 
 
