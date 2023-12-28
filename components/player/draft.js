@@ -7,7 +7,6 @@ import "plyr-react/plyr.css"
 import './player.css'
 
 const VideoPlayer = ({src, sub, ts, title}) => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     const options = {
         seekTime: 5,
         fullscreen: {
@@ -29,6 +28,7 @@ const VideoPlayer = ({src, sub, ts, title}) => {
       }
 
 
+      
     useEffect(() => {
         (() => {
             const source = src
